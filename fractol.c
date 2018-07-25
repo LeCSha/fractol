@@ -52,7 +52,7 @@ void mandelbrot(t_fract *data)
   double tmp;
   double tmp2;
 
-  x = 0;
+
   y = 0;
   data->itmax = 50;
   init_mandel(data);
@@ -61,6 +61,7 @@ void mandelbrot(t_fract *data)
   {
     // i = 0;
     // data->c_i = (y - WIDTH / 2.0) / (0.5 * data->zoom) + data->starty;
+    x = 0;
     while (x < data->imgx)
     {
       // data->c_r = (x - WIDTH / 2.0) / (0.5 * data->zoom * WIDTH) + data->startx;
@@ -78,19 +79,23 @@ void mandelbrot(t_fract *data)
         data->z_r = tmp * tmp - tmp2 * tmp2 + data->c_r;
         data->z_i = 2 * tmp * tmp2 + data->c_i;
         // printf("zr : %f\nzi : %f\n", data->z_r, data->z_i);
-        printf("i : %d\n", i);
-        printf("fds : %f\n", data->z_r * data->z_r + data->z_i * data->z_i);
+        // printf("i : %d\n", i);
+        // printf("fds : %f\n", data->z_r * data->z_r + data->z_i * data->z_i);
         i++;
       }
+      if (x < 0)
+        printf("x < 0: %d\n", x);
       if (i == data->itmax)
       {
         mlx_pixel_put(data->mlx->mptr, data->mlx->wptr, x, y, 0xFFFFFF);
         // draw_fractal(data, x, y, 0xFFFFFF);
-        printf("x : %d\ny : %d\n", x, y);
+        // printf("x itmax: %d\n", x);
       }
       else
-        mlx_pixel_put(data->mlx->mptr, data->mlx->wptr, x, y, 0x84742d);
+        mlx_pixel_put(data->mlx->mptr, data->mlx->wptr, x, y, 0xE628AB);
           // draw_fractal(data, x, y, 0x84742d);
+          // printf("x : %d\n", x);
+
       x++;
     }
     y++;
