@@ -11,7 +11,7 @@
 # include "minilibx/mlx.h"
 # include "libft/libft.h"
 
-# define WIDTH 1000
+# define WIDTH 800
 # define HEIGHT 800
 
 typedef struct  mlx
@@ -27,7 +27,7 @@ typedef struct  mlx
 
 typedef struct  fract
 {
-  float complx;
+  double z;
   float startx;
   float endx;
   float starty;
@@ -43,5 +43,7 @@ typedef struct  fract
   t_mlx *mlx;
 }               t_fract;
 
-
+int   keycode(int key, t_fract *data);
+int   mousecode(int button, int x, int y, t_fract *data);
+void  mandelbrot(t_fract *data, int x, int y);
 #endif

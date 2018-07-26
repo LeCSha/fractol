@@ -28,47 +28,34 @@ void init_mlx(t_fract *data)
 
 void init_mandel(t_fract *data)
 {
-  data->zoom = 100;
-  data->startx = -2.1;
-  data->endx = 0.6;
-  data->starty = -1.2;
-  data->endy = 1.2;
-  // data->imgx = (data->endx - data->startx) * data->zoom;
-  // data->imgy = (data->endy - data->starty) * data->zoom;
+  data->itmax = 50;
+  data->z = 1000;
+  data->zoom = 800;
+  data->startx = -2;
+  data->endx = 2;
+  data->starty = -2;
+  data->endy = 2;
   data->imgx = WIDTH;
   data->imgy = HEIGHT;
 }
 
 void draw_fractal(t_fract *data, int x, int y, int color)
 {
-  data->mlx->data[x * WIDTH + y] = color;
+  data->mlx->data[y * WIDTH + x] = color;
 }
 
-void mandelbrot(t_fract *data)
+void mandelbrot(t_fract *data, int x, int y)
 {
-  int x;
-  int y;
-  int i;
+  double i;
   double tmp;
   double tmp2;
 
-
-  y = 0;
-  data->itmax = 50;
-  init_mandel(data);
-  // i = 0;
   while (y < data->imgy)
   {
-    // i = 0;
-    // data->c_i = (y - WIDTH / 2.0) / (0.5 * data->zoom) + data->starty;
-    x = 0;
     while (x < data->imgx)
     {
-      // data->c_r = (x - WIDTH / 2.0) / (0.5 * data->zoom * WIDTH) + data->startx;
-      // data->c_r = x / data->zoom + data->startx;
-      // data->c_i = y / data->zoom + data->starty;
-      data->c_r = (x * (data->endx - data->startx)) / WIDTH + data->starty;
-      data->c_i = (y * (data->starty - data->endy)) / HEIGHT + data->endy;
+      data->c_r = (x * (data->endx - data->startx)) / data->zoom + data->starty;
+      data->c_i = (y * (data->starty - data->endy)) / data->zoom + data->endy;
       data->z_r = 0;
       data->z_i = 0;
       i = 0;
@@ -78,26 +65,23 @@ void mandelbrot(t_fract *data)
         tmp2 = data->z_i;
         data->z_r = tmp * tmp - tmp2 * tmp2 + data->c_r;
         data->z_i = 2 * tmp * tmp2 + data->c_i;
-        // printf("zr : %f\nzi : %f\n", data->z_r, data->z_i);
-        // printf("i : %d\n", i);
-        // printf("fds : %f\n", data->z_r * data->z_r + data->z_i * data->z_i);
         i++;
       }
-      if (x < 0)
-        printf("x < 0: %d\n", x);
       if (i == data->itmax)
-      {
-        mlx_pixel_put(data->mlx->mptr, data->mlx->wptr, x, y, 0xFFFFFF);
+        mlx_pixel_put(data->mlx->mptr, data->mlx->wptr, x, y, 0x000000);
         // draw_fractal(data, x, y, 0xFFFFFF);
-        // printf("x itmax: %d\n", x);
-      }
       else
-        mlx_pixel_put(data->mlx->mptr, data->mlx->wptr, x, y, 0xE628AB);
-          // draw_fractal(data, x, y, 0x84742d);
-          // printf("x : %d\n", x);
-
+      {
+        // i = i - log(log(sqrt(data->z_r * data->z_r + data->z_i * data->z_r))) / log(2);
+        // mlx_pixel_put(data->mlx->mptr, data->mlx->wptr, x, y, i * (0xFF0000 / data->itmax) / 50);
+        i = i + 1 - log(log(data->z_r * data->z_r + data->z_i * data->z_r)) / 2;
+        mlx_pixel_put(data->mlx->mptr, data->mlx->wptr, x, y, i * 0x84742d / data->itmax);
+        // i = i - log(log(sqrt(data->z_r * data->z_r + data->z_i * data->z_r))) / log(2);
+        // mlx_pixel_put(data->mlx->mptr, data->mlx->wptr, x, y, i * 3 * 256 / data->itmax);
+      }
       x++;
     }
+    x = 0;
     y++;
   }
 }
@@ -112,9 +96,11 @@ int main(void)
   // if (ac < 1)
   //   return (0);
   // if (ft_strncmp(av[1], "mandel", 6) == 0)
-    mandelbrot(data);
+  init_mandel(data);
+  mandelbrot(data, 0, 0);
   // mlx_put_image_to_window(data->mlx->mptr, data->mlx->wptr, data->mlx->img_ptr, 0, 0);
-  // mlx_key_hook(data->mlx->wptr, key_fractol, data);
+  mlx_key_hook(data->mlx->wptr, keycode, data);
+  mlx_mouse_hook(data->mlx->wptr, mousecode, data);
   mlx_loop(data->mlx->mptr);
   return (0);
 }

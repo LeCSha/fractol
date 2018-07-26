@@ -18,7 +18,7 @@ MLX = ./minilibx
 FRK = -framework
 OPEN = OpenGL
 APPK = AppKit
-SRCS = fractol.c
+SRCS = fractol.c keycode.c mousecode.c
 OBJS = ${SRCS:.c=.o}
 
 .PHONY:clean fclean
