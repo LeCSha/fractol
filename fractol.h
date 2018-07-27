@@ -27,20 +27,19 @@ typedef struct  mlx
 
 typedef struct  fract
 {
-  double z;
-  float startx;
-  float endx;
-  float starty;
-  float endy;
-  int   zoom;
-  int   itmax;
-  float imgx;
-  float imgy;
-  double   c_r;
-  double   c_i;
-  double   z_r;
-  double   z_i;
-  t_mlx *mlx;
+  float   startx;
+  float   endx;
+  float   starty;
+  float   endy;
+  double  zoom;
+  int     itmax;
+  float   imgx;
+  float   imgy;
+  double  c_r;
+  double  c_i;
+  double  z_r;
+  double  z_i;
+  t_mlx   *mlx;
 }               t_fract;
 
 int   keycode(int key, t_fract *data);
