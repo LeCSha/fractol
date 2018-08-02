@@ -1,42 +1,54 @@
 
 #include "fractol.h"
 
-void free_fract(t_fract *data)
+void free_fract(t_ftc *ftc)
 {
-	free(data->mlx);
-	free(data);
+	free(ftc->mx);
+	free(ftc);
 }
 
-void    exit_fract(t_fract *data)
+void    exit_ftc(t_ftc *ftc)
 {
-	mlx_destroy_image(data->mlx->mptr, data->mlx->img_ptr);
-	mlx_clear_window(data->mlx->mptr, data->mlx->wptr);
-	mlx_destroy_window(data->mlx->mptr, data->mlx->wptr);
-	free_fract(data);
+	mlx_destroy_image(ftc->mx->mptr, ftc->mx->iptr);
+	mlx_clear_window(ftc->mx->mptr, ftc->mx->wptr);
+	mlx_destroy_window(ftc->mx->mptr, ftc->mx->wptr);
+	free_fract(ftc);
 	exit(0);
 }
-void zoomk(t_fract *data)
+
+void zoom(int key, t_ftc *ftc)
 {
-    data->zoom *= 0.2;
-    // data->itmax *= 2;
-    // data->startx = x - data->z;
-    // data->starty = y - data->z;
-    // data->endx = x + data->z;
-    // data->endy = y + data->z;
-    // data->z -= 0.1;
-  // }
-  // mlx_destroy_image(data->mlx->mptr, data->mlx->img_ptr);
-	mlx_clear_window(data->mlx->mptr, data->mlx->wptr);
-	// data->mlx->data = (int *)mlx_get_data_addr(data->mlx->img_ptr, &data->mlx->bpp, &data->mlx->size_l, &data->mlx->endian);
-  mandelbrot(data, 0, 0);
-  		// mlx_do_sync(data->mlx->mptr);
-  // mlx_put_image_to_window(data->mlx->mptr, data->mlx->wptr, data->mlx->img_ptr, 0, 0);
+	double oldw;
+	double oldy;
+	double neww;
+	double newy;
+
+	oldw = (ftc->end.x - ftc->start.x) * ftc->zoom;
+	oldy = (ftc->end.y - ftc->start.y) * ftc->zoom;
+	ftc->zoom = (key == 69) ? ftc->zoom * (1 / 1.1f) : ftc->zoom * 1.1f;
+	neww = (ftc->end.x - ftc->start.x) * ftc->zoom;
+	newy = (ftc->end.y - ftc->start.y) * ftc->zoom;
+	ftc->zoox -= ((double)WIDTH / 2 / WIDTH) * (neww - oldw);
+	ftc->zooy -= ((double)HEIGHT / 2 / HEIGHT) * (newy - oldy);
+
+
 }
-int keycode(int key, t_fract *data)
+
+int keycode(int key, t_ftc *ftc)
 {
 	if (key == 53)
-		exit_fract(data);
-	if (key == 78)
-		zoomk(data);
+		exit_ftc(ftc);
+	if (key == 116 || key == 121)
+		ftc->itmax += key == 116 ? 5 : (ftc->itmax > 0) ? -5 : (ft_abs(ftc->itmax) + 2);
+	if (key == 69 || key == 78)
+		zoom(key, ftc);
+	mlx_clear_window(ftc->mx->mptr, ftc->mx->wptr);
+	string_put(ftc);
+	mlx_string_put(ftc->mx->mptr, ftc->mx->wptr, 200, 830, 0x2EDD17, "pos x : ");
+	mlx_string_put(ftc->mx->mptr, ftc->mx->wptr, 270, 830, 0x2EDD17, ft_ftoa(ftc->start.x));
+	mlx_string_put(ftc->mx->mptr, ftc->mx->wptr, 200, 860, 0x2EDD17, "pos y : ");
+	mlx_string_put(ftc->mx->mptr, ftc->mx->wptr, 270, 860, 0x2EDD17, ft_ftoa(ftc->start.y));
+	it_draw(ftc, ftc->func);
+	mlx_put_image_to_window(ftc->mx->mptr, ftc->mx->wptr, ftc->mx->iptr, 0, 0);
 	return (0);
 }

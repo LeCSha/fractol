@@ -1,30 +1,46 @@
 
 #include "fractol.h"
 
-void zoom(t_fract *data, int x, int y)
+int mousemotion(int x, int y, t_ftc *ftc)
 {
-  double x_r = x / data->zoom + data->startx;
-  double y_r = y / data->zoom + data->starty;
-  data->zoom *= 2;
-  data->itmax *= 200;
-  data->imgx *= 2;
-  data->imgy *= 2;
-  data->startx = x_r - data->imgx / data->zoom / 2;
-  data->starty = y_r - data->imgy / data->zoom / 2;
-  // data->endx = x + data->z;
-  // data->endy = y + data->z;
-  // data->z -= 0.1;
-  // mlx_destroy_image(data->mlx->mptr, data->mlx->img_ptr);
-	mlx_clear_window(data->mlx->mptr, data->mlx->wptr);
-	// data->mlx->data = (int *)mlx_get_data_addr(data->mlx->img_ptr, &data->mlx->bpp, &data->mlx->size_l, &data->mlx->endian);
-  mandelbrot(data, 0, 0);
-  		// mlx_do_sync(data->mlx->mptr);
-  // mlx_put_image_to_window(data->mlx->mptr, data->mlx->wptr, data->mlx->img_ptr, 0, 0);
+  if (x > 0 && x < WIDTH && y > 0 && y < HEIGHT && ftc->stpmov > 0)
+  {
+    ftc->c.x = (double)x / (double)WIDTH * 4 - 2;
+    ftc->c.y = (double)y / (double)HEIGHT * 4 - 2;
+  	mlx_clear_window(ftc->mx->mptr, ftc->mx->wptr);
+    string_put(ftc);
+    it_draw(ftc, ftc->func);
+    mlx_put_image_to_window(ftc->mx->mptr, ftc->mx->wptr, ftc->mx->iptr, 0, 0);
+  }
+  return (1);
 }
 
-int mousecode(int button, int x, int y, t_fract *data)
+void zoomouse(int button, int x, int y, t_ftc *ftc)
 {
-  if (button == 1 || button == 5)
-    zoom(data, x, y);
-  return (0);
+  double oldw;
+  double oldy;
+  double neww;
+  double newy;
+
+  oldw = (ftc->end.x - ftc->start.x) * ftc->zoom;
+  oldy = (ftc->end.y - ftc->start.y) * ftc->zoom;
+  ftc->zoom = (button == 5) ? ftc->zoom * (1 / 1.1f) : ftc->zoom * 1.1f;
+  neww = (ftc->end.x - ftc->start.x) * ftc->zoom;
+  newy = (ftc->end.y - ftc->start.y) * ftc->zoom;
+  ftc->zoox -= ((double)x / WIDTH) * (neww - oldw);
+  ftc->zooy -= ((double)y / HEIGHT) * (newy - oldy);
+}
+
+int   mousecode(int button, int x, int y, t_ftc *ftc)
+{
+  if (button == 4 || button == 5)
+    zoomouse(button, x, y, ftc);
+  if (button == 1 || button == 2)
+		ftc->stpmov = (button == 2) ? 1 : 0;
+  mlx_clear_window(ftc->mx->mptr, ftc->mx->wptr);
+	string_put(ftc);
+
+	it_draw(ftc, ftc->func);
+	mlx_put_image_to_window(ftc->mx->mptr, ftc->mx->wptr, ftc->mx->iptr, 0, 0);
+  return (1);
 }

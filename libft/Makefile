@@ -68,14 +68,17 @@ SRC =	ft_atoi.c      \
 		ft_strsub.c     \
 		ft_strtrim.c    \
 		ft_tolower.c    \
-		ft_toupper.c 	\
-		get_next_line.c
+		ft_toupper.c 		\
+		get_next_line.c	\
+		ft_ftoa.c				\
+		ft_modf.c				\
+		ft_abs.c
 OBJ = $(SRC:.c=.o)
 
 all : $(NAME)
 
 $(NAME) :
-	gcc $(CFLAGS) -c $(SRC) 
+	gcc $(CFLAGS) -c $(SRC)
 	ar rc $(NAME) $(OBJ)
 	ranlib $(NAME)
 
