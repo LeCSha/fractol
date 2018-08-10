@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strsub.c                                        :+:      :+:    :+:   */
+/*   ft_pow.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaille <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 14:12:46 by abaille           #+#    #+#             */
-/*   Updated: 2017/11/20 18:28:35 by abaille          ###   ########.fr       */
+/*   Created: 2017/11/24 09:50:01 by abaille           #+#    #+#             */
+/*   Updated: 2017/11/24 09:50:04 by abaille          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strsub(char const *s, unsigned int start, size_t len)
+double	ft_pow(double nb, double power)
 {
-	int		nb;
-	char	*str;
+	int		i;
+	double	res;
 
-	if (s == NULL)
-		return (NULL);
-	if ((str = (char *)malloc(sizeof(char) * (len + 1))) == NULL)
-		return (NULL);
-	nb = 0;
-	while (len > (size_t)nb && s[start + nb])
+	res = nb;
+	if (nb == 0 || power == 0)
+		return (nb);
+	i = 1;
+	while (i < power)
 	{
-		str[nb] = s[start + nb];
-		nb++;
+		res *= nb;
+		i++;
 	}
-	str[nb] = '\0';
-	return (str);
+	return (res);
 }

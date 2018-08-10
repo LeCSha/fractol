@@ -14,6 +14,7 @@
 
 double  ft_modf(double nb, double *nbr)
 {
-  *nbr = (int)nb;
+  if (nbr != NULL)
+    *nbr = (int)nb;
   return (nb - (int)nb);
 }

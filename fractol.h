@@ -27,9 +27,9 @@ struct  s_cpx
 
 struct  s_rgb
 {
-  unsigned char r;
-  unsigned char g;
-  unsigned char b;
+  double r;
+  double g;
+  double b;
 };
 
 struct  s_mlx
@@ -50,25 +50,35 @@ struct  s_ftc
   t_cpx   c;
   t_cpx   z;
   t_mlx   *mx;
-  char    **fname;
+  char    *fname;
+  char    *lyapu;
   double  zoom;
-  double  itmax;
-  double  zoox;
-  double  zooy;
+  int  itmax;
+  double  pdx;
+  double  pdy;
   double  imgx;
   double  imgy;
   int     stpmov;
-  void    (*func)(t_ftc *ftc, double, double);
+  void    (*fractal)(t_ftc *ftc, double, double);
 };
 
 int   keycode(int key, t_ftc *ftc);
 int   mousemotion(int x, int y, t_ftc *ftc);
 int   mousecode(int button, int x, int y, t_ftc *ftc);
 
-void  it_draw(t_ftc *ftc, void (func)(t_ftc *, double, double));
 void  mandelbrot(t_ftc *ftc, double x, double y);
 void  julia(t_ftc *ftc, double x, double y);
+void  mandel_tri(t_ftc *ftc, double x, double y);
+void  julia5(t_ftc *ftc, double x, double y);
+void	init_lyapu(t_ftc *ftc, double x, double y);
+void	lyapunov(t_ftc *ftc, double x, double y);
+void  burningship(t_ftc *ftc, double x, double y);
 
 void  string_put(t_ftc *ftc);
+
+void  it_draw(t_ftc *ftc, void (func)(t_ftc *, double, double));
+void  draw_fractal(t_ftc *ftc, int x, int y, int color);
+void  redraw(t_ftc *ftc);
+void  print_error(int nb, t_ftc *ftc);
 
 #endif

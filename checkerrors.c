@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strsub.c                                        :+:      :+:    :+:   */
+/*   fractol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abaille <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 14:12:46 by abaille           #+#    #+#             */
-/*   Updated: 2017/11/20 18:28:35 by abaille          ###   ########.fr       */
+/*   Created: 2018/06/25 09:50:01 by abaille           #+#    #+#             */
+/*   Updated: 2018/06/25 09:50:04 by abaille          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "fractol.h"
 
-char	*ft_strsub(char const *s, unsigned int start, size_t len)
+void print_error(int nb, t_ftc *ftc)
 {
-	int		nb;
-	char	*str;
-
-	if (s == NULL)
-		return (NULL);
-	if ((str = (char *)malloc(sizeof(char) * (len + 1))) == NULL)
-		return (NULL);
-	nb = 0;
-	while (len > (size_t)nb && s[start + nb])
-	{
-		str[nb] = s[start + nb];
-		nb++;
-	}
-	str[nb] = '\0';
-	return (str);
+  if (nb == 1)
+    ft_putstr("Problem with allocation memory\n");
+  else if (nb == 2)
+    ft_putstr("Map not valid\n");
+  else if (nb == 3)
+    ft_putstr("Problem reading file/allocation failed\n");
+  else if (nb == 4)
+    ft_putstr("Map size not valid/no value\n");
+  else if (nb == 5)
+    ftc = NULL;
+    // fdf_usage();
+  exit(0);
 }

@@ -72,7 +72,9 @@ SRC =	ft_atoi.c      \
 		get_next_line.c	\
 		ft_ftoa.c				\
 		ft_modf.c				\
-		ft_abs.c
+		ft_abs.c				\
+		ft_pow.c				\
+		ft_clamp.c
 OBJ = $(SRC:.c=.o)
 
 all : $(NAME)

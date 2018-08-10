@@ -13,12 +13,17 @@
 NAME = fractol
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-LIBFT = ./libft
-MLX = ./minilibx
-FRK = -framework
-OPEN = OpenGL
-APPK = AppKit
-SRCS = fractol.c keycode.c mousecode.c
+LIBFT =	./libft
+MLX =	./minilibx
+FRK =	-framework
+OPEN =	OpenGL
+APPK =	AppKit
+SRCS =	fractol.c \
+		keycode.c \
+		mousecode.c \
+		fractales.c	\
+		draw.c \
+		checkerrors.c
 OBJS = ${SRCS:.c=.o}
 
 .PHONY:clean fclean
