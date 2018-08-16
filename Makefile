@@ -18,11 +18,13 @@ MLX =	./minilibx
 FRK =	-framework
 OPEN =	OpenGL
 APPK =	AppKit
-SRCS =	fractol.c \
-		keycode.c \
+SRCS =	fractol.c	\
+		keycode.c	\
 		mousecode.c \
 		fractales.c	\
-		draw.c \
+		lyapunov.c	\
+		draw.c		\
+		color.c		\
 		checkerrors.c
 OBJS = ${SRCS:.c=.o}
 

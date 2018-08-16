@@ -29,7 +29,9 @@ void init_mlx(t_ftc *ftc)
 	ftc->mx->wptr = mlx_new_window(ftc->mx->mptr, WIDTH, HEIGHT + 200, "Fract'ol");
 	ftc->mx->iptr = mlx_new_image(ftc->mx->mptr, WIDTH, HEIGHT);
 	ftc->mx->data = (int *)mlx_get_data_addr(ftc->mx->iptr, &ftc->mx->bpp, &ftc->mx->size_l, &ftc->mx->endian);
-	ftc->itmax = 50;
+	ftc->pcolors = init_colors();
+	ftc->palptr = &ftc->pcolors[0];
+	ftc->itmax = 100;
 	ftc->zoom = 1.0f;
 	ftc->stpmov = 5;
 	ftc->c.x = 0.0;
@@ -42,33 +44,41 @@ void init_mlx(t_ftc *ftc)
 	ftc->pdy = 0.0;
 }
 
-int main(int ac, char **av)
+void	ftc_info(t_ftc *ftc, char *av)
 {
-	t_ftc *ftc;
 	void  (*fractal)(t_ftc *ftc, double, double);
 
 	fractal = NULL;
-	if (!(ftc = (t_ftc *)malloc(sizeof(t_ftc))))
-		print_error(1, ftc);
-	init_mlx(ftc);
-	if (ac < 1)
-		return (0);
-	if (ft_strcmp("mandelbrot" ,av[1]) == 0)
+	if (ft_strcmp("mandelbrot" ,av) == 0)
 		fractal = &mandelbrot;
-	if (ft_strcmp("burningship" ,av[1]) == 0)
+	if (ft_strcmp("burningship" ,av) == 0)
 		fractal = &burningship;
-	if (ft_strcmp("julia", av[1]) == 0)
+	if (ft_strcmp("julia", av) == 0)
 		fractal = &julia;
-	if (ft_strcmp("mandel_tri", av[1]) == 0)
-		fractal = &mandel_tri;
-	if (ft_strcmp("Lyapunov", av[1]) == 0)
-		fractal = &init_lyapu;
+	if (ft_strcmp("julia_4", av) == 0)
+		fractal = &julia_4;
+	if (ft_strcmp("test", av) == 0)
+		fractal = &test;
+	if (ft_strcmp("lyapunov", av) == 0)
+	{
+		fractal = &lyapunov;
+		init_lyapu(ftc);
+	}
 	ftc->fractal = fractal;
-	ftc->fname = ft_strdup(av[1]);
-	if (ft_strcmp("Lyapunov", av[1]) == 0)
-		init_lyapu(ftc, 0, 0);
-	else
-		it_draw(ftc, ftc->fractal);
+	if (!(ftc->fname = ft_strdup(av)))
+		print_error(1, ftc);
+}
+
+int main(int ac, char **av)
+{
+	t_ftc *ftc;
+
+	ac != 2 ? print_error(2, NULL) : checkargs(av[1]);
+	if (!(ftc = (t_ftc *)malloc(sizeof(t_ftc))))
+		print_error(1, NULL);
+	init_mlx(ftc);
+	ftc_info(ftc, av[1]);
+	it_draw(ftc, ftc->fractal);
 	mlx_put_image_to_window(ftc->mx->mptr, ftc->mx->wptr, ftc->mx->iptr, 0, 0);
 	mlx_key_hook(ftc->mx->wptr, keycode, ftc);
 	mlx_mouse_hook(ftc->mx->wptr, mousecode, ftc);

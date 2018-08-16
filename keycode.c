@@ -1,12 +1,6 @@
 
 #include "fractol.h"
 
-void free_fract(t_ftc *ftc)
-{
-	free(ftc->mx);
-	free(ftc);
-}
-
 void    exit_ftc(t_ftc *ftc)
 {
 	mlx_destroy_image(ftc->mx->mptr, ftc->mx->iptr);
@@ -54,6 +48,8 @@ int		keycode(int key, t_ftc *ftc)
 		zoom(key, ftc);
 	if (key == 125 || key == 126 || key == 123 || key == 124)
 		moove(key, ftc);
+	if (key >= 18 && key <= 24)
+		ftc->palptr = &ftc->pcolors[key - 18];
 	redraw(ftc);
 	return (0);
 }
