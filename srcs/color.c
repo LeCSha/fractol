@@ -40,7 +40,7 @@ int		mixcolors(int color1, int color2, double p)
 	return (color);
 }
 
-int		smoothcolor(t_ftc *ftc, double i)
+int		smoothcolor(t_ftc *ftc, double i, t_cpx z)
 {
 	double	index;
 	double	adjust;
@@ -48,13 +48,15 @@ int		smoothcolor(t_ftc *ftc, double i)
 
 	if (i == ftc->itmax)
 		return (0x000000);
-	index = i + 1 - log(log(sqrt(ftc->z.x * ftc->z.x + ftc->z.y * ftc->z.y))) + 4;
+	index = i + 1 - log(log(sqrt(z.x *
+		z.x + z.y * z.y))) + 4;
 	if (index < 0)
 		index = 0;
 	index = index / ftc->itmax;
 	c = ftc->palptr->size - 1;
 	adjust = fmod(index, 1.0f / c) * c;
-	return (mixcolors((ftc->palptr->c[(int)(index * c) + 1]), (ftc->palptr->c[(int)(index * c)]),
+	return (mixcolors((ftc->palptr->c[(int)(index * c) + 1]),
+	(ftc->palptr->c[(int)(index * c)]),
 		(int)adjust + 1 - adjust));
 }
 
@@ -67,14 +69,14 @@ t_pal	*init_colors(void)
 	tab[0] =
 		(t_pal){5, {0x1B998B, 0xFFFD82, 0x2D3047, 0xED217C, 0xFF9B71}};
 	tab[1] =
-		(t_pal){5, {0x4E0250, 0x111344, 0x645986, 0x8FE388, 0x58BC82}}; //ok violetnuit
+		(t_pal){5, {0xFD8437, 0x590B36, 0xDD3C39, 0xF48326, 0xF5F55C}};
 	tab[2] =
-		(t_pal){5, {0xBCABAE, 0x0F0F0F, 0x2D2E2E, 0x716969, 0xFBFBFB}}; //ok blanc noir
+		(t_pal){5, {0xBCABAE, 0x0F0F0F, 0x2D2E2E, 0x716969, 0xFBFBFB}};
 	tab[3] =
-		(t_pal){5, {0x494947, 0x35FF69, 0x44CCFF, 0x7494EA, 0xD138BF}};// ok vert fonce
+		(t_pal){5, {0xD138BF, 0x7565BC, 0x41C0E0, 0x7494EA, 0xD138BF}};
 	tab[4] =
-		(t_pal){5, {0xDABFFF, 0x907AD6, 0x4F518C, 0x2C2A4A, 0x7FDEFF}};// ok bleu nuit
+		(t_pal){5, {0xDABFFF, 0x907AD6, 0x4F518C, 0x2C2A4A, 0x7FDEFF}};
 	tab[5] =
-		(t_pal){5, {0x3D314A, 0x02020A, 0x05204A, 0xB497D6, 0xE1E2EF}};// ok pastel
+		(t_pal){5, {0x3D314A, 0x02020A, 0x05204A, 0xB497D6, 0xE1E2EF}};
 	return (tab);
 }

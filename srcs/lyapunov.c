@@ -12,20 +12,28 @@
 
 #include "fractol.h"
 
-double	c_lyapu(t_ftc *ftc, int i, double a, double b)
+static double	c_lyapu(t_ftc *ftc, int i, double a, double b)
 {
 	if (ftc->seq[i % ft_strlen(ftc->seq)] == 'A')
 		return (a);
 	return (b);
 }
 
-void	lyapunov(t_ftc *ftc, double x, double y)
+static void		draw_lmbda(t_ftc *ftc, double x, double y, double lmbda)
+{
+	if (lmbda < 0)
+		draw_fractal(ftc, x, y, smoothcolor(ftc, lmbda * -1 * 255));
+	else
+		draw_fractal(ftc, x, y, ((int)(lmbda / 2 * 255)) << 0);
+}
+
+void			lyapunov(t_ftc *ftc, double x, double y)
 {
 	double	a;
 	double	b;
 	double	lmbda;
 	double	x_n[ftc->itmax + 1];
-	int			i;
+	int		i;
 
 	x_n[0] = 0.5;
 	a = ftc->z.x - ftc->imgx / 2.0 + ftc->imgx * x / WIDTH + ftc->pdx;
@@ -39,20 +47,18 @@ void	lyapunov(t_ftc *ftc, double x, double y)
 		while (i <= ftc->itmax)
 		{
 			x_n[i] = c_lyapu(ftc, i - 1, a, b) * x_n[i - 1] * (1 - x_n[i - 1]);
-			lmbda += log(fabs(c_lyapu(ftc, i, a, b) * (1 - 2 * x_n[i]))) / log(2);
+			lmbda += log(fabs(c_lyapu(ftc, i, a, b) * (1 - 2 * x_n[i]))) /
+			log(2);
 			i++;
 		}
 		lmbda /= ftc->itmax;
 	}
-	if (lmbda < 0)
-		draw_fractal(ftc, x, y, smoothcolor(ftc, lmbda * -1 * 255));
-	else
-		draw_fractal(ftc, x, y, ((int)(lmbda/2*255)) << 0);
+	draw_lmbda(ftc, x, y, lmbda);
 }
 
-void	init_lyapu(t_ftc *ftc)
+void			init_lyapu(t_ftc *ftc)
 {
-	if (!(ftc->seq = ft_strdup("AABB")))
+	if (!(ftc->seq = ft_strdup("BAAB")))
 		print_error(1, ftc);
 	ftc->itmax = 100;
 	ftc->zoom = 0.3f;

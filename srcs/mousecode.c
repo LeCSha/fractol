@@ -12,18 +12,18 @@
 
 #include "fractol.h"
 
-int mousemotion(int x, int y, t_ftc *ftc)
+int		mousemotion(int x, int y, t_ftc *ftc)
 {
 	if (x > 0 && x < WIDTH && y > 0 && y < HEIGHT && ftc->stpmov > 0)
 	{
-		ftc->c.x = (double)x / (double)WIDTH * 4 - 2;
-		ftc->c.y = (double)y / (double)HEIGHT * 4 - 2;
+		ftc->c.x = (double)x / (double)WIDTH * 4.0 - 2;
+		ftc->c.y = (double)y / (double)HEIGHT * 4.0 - 2;
 		redraw(ftc);
 	}
 	return (1);
 }
 
-void zoomouse(int button, int x, int y, t_ftc *ftc)
+void	zoomouse(int button, int x, int y, t_ftc *ftc)
 {
 	double oldw;
 	double oldy;
@@ -54,11 +54,12 @@ void	zoomlyapu(int button, int x, int y, t_ftc *ftc)
 	ftc->pdy -= (double)y / HEIGHT / 2.0 * (ftc->imgy - oldy);
 }
 
-int   mousecode(int button, int x, int y, t_ftc *ftc)
+int		mousecode(int button, int x, int y, t_ftc *ftc)
 {
-	if ((button == 4 || button == 5) && ft_strcmp("lyapunov", ftc->fname) != 0 )
+	if ((button == 4 || button == 5) && ft_strcmp("lyapunov", ftc->fname) != 0)
 		zoomouse(button, x, y, ftc);
-	else if ((button == 4 || button == 5) && ft_strcmp("lyapunov", ftc->fname) == 0 )
+	else if ((button == 4 || button == 5) &&
+	ft_strcmp("lyapunov", ftc->fname) == 0)
 		zoomlyapu(button, x, y, ftc);
 	if (button == 1 || button == 2)
 		ftc->stpmov = (button == 2) ? 1 : 0;

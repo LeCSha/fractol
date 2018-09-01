@@ -12,17 +12,33 @@
 
 #include "fractol.h"
 
+void	reset(t_ftc *ftc)
+{
+	ftc->palptr = &ftc->pcolors[0];
+	ftc->seq = NULL;
+	ftc->itmax = 100;
+	ftc->zoom = 1.0f;
+	ftc->stpmov = 5;
+	ftc->c.x = 0.0;
+	ftc->c.y = 0.0;
+	ftc->start.x = -2.0f;
+	ftc->end.x = 2.0f;
+	ftc->start.y = -2.0f;
+	ftc->end.y = 2.0f;
+	ftc->pdx = 0.0;
+	ftc->pdy = 0.0;
+}
 void	draw_fractal(t_ftc *ftc, int x, int y, int color)
 {
 	ftc->mx->data[y * WIDTH + x] = color;
 }
 
-void	it_draw(t_ftc *ftc, void (func)(t_ftc *, double, double))
+void	it_draw(t_ftc *ftc, void (func)(t_ftc *, double, double), int line)
 {
 	double x;
 	double y;
 
-	y = 0;
+	y = line - 1;
 	while (y < HEIGHT)
 	{
 		x = 0;
@@ -31,14 +47,14 @@ void	it_draw(t_ftc *ftc, void (func)(t_ftc *, double, double))
 			func(ftc, x, y);
 			x++;
 		}
-		y++;
+		y += 4;
 	}
 }
 
-void 	redraw(t_ftc *ftc)
+void	redraw(t_ftc *ftc)
 {
 	mlx_clear_window(ftc->mx->mptr, ftc->mx->wptr);
 	string_put(ftc);
-	it_draw(ftc, ftc->fractal);
+	init_thread(ftc);
 	mlx_put_image_to_window(ftc->mx->mptr, ftc->mx->wptr, ftc->mx->iptr, 0, 0);
 }

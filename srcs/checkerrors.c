@@ -12,46 +12,55 @@
 
 #include "fractol.h"
 
-void  free_fract(t_ftc *ftc)
+void	exit_ftc(t_ftc *ftc)
 {
-  if (ftc->mx)
-	  free(ftc->mx);
-  if (ftc->pcolors)
-	  free(ftc->pcolors);
-  if (ftc->fname)
-    free(ftc->fname);
-  if (ftc->seq)
-    free(ftc->seq);
+	mlx_destroy_image(ftc->mx->mptr, ftc->mx->iptr);
+	mlx_clear_window(ftc->mx->mptr, ftc->mx->wptr);
+	mlx_destroy_window(ftc->mx->mptr, ftc->mx->wptr);
+	free_fract(ftc);
+	exit(0);
+}
+
+void	free_fract(t_ftc *ftc)
+{
+	if (ftc->mx)
+		free(ftc->mx);
+	if (ftc->pcolors)
+		free(ftc->pcolors);
+	if (ftc->fname)
+		free(ftc->fname);
+	if (ftc->seq)
+		free(ftc->seq);
 	free(ftc);
 }
 
-void  checkargs(char *av)
+void	checkargs(char *av)
 {
 	if (ft_strcmp("mandelbrot", av) != 0 &&
 	ft_strcmp("burningship", av) != 0 &&
 	ft_strcmp("julia", av) != 0 &&
-	ft_strcmp("julia_4", av) != 0 &&
-  ft_strcmp("test", av) != 0 &&
+	ft_strcmp("tribrot", av) != 0 &&
 	ft_strcmp("lyapunov", av) != 0)
-    print_error(2, NULL);
+		print_error(2, NULL);
 }
 
-void  usage(void)
+void	usage(void)
 {
-  ft_putstr("\n\n---- USAGE ----\n\n");
-  ft_putstr("./fractol [mandelbrot, julia, burningship, julia_4, lyapunov]\n\n");
-  ft_putstr("scroll to zoom\n");
-  ft_putstr("[LFT][RGT][UP][DWN] to moove\n");
-  ft_putstr("1 to 6 to change colors\n\n");
+	ft_putstr("\n\n---- USAGE ----\n\n");
+	ft_putstr("./fractol [mandelbrot, julia, burningship,");
+	ft_putstr("tribrot, lyapunov]\n\n");
+	ft_putstr("scroll to zoom\n");
+	ft_putstr("[LFT][RGT][UP][DWN] to moove\n");
+	ft_putstr("1 to 6 to change colors\n\n");
 }
 
-void  print_error(int nb, t_ftc *ftc)
+void	print_error(int nb, t_ftc *ftc)
 {
-  if (nb == 1)
-    ft_putstr("Problem with allocation memory\n");
-  else if (nb == 2)
-    usage();
-  if (ftc != NULL)
-    free_fract(ftc);
-  exit(0);
+	if (nb == 1)
+		ft_putstr("Problem with allocation memory\n");
+	else if (nb == 2)
+		usage();
+	if (ftc != NULL)
+		free_fract(ftc);
+	exit(0);
 }
