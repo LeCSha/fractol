@@ -109,6 +109,7 @@ struct  s_ftc
 int		keycode(int key, t_ftc *ftc);
 int		mousemotion(int x, int y, t_ftc *ftc);
 int		mousecode(int button, int x, int y, t_ftc *ftc);
+int		change_seqlyapu(int key, t_ftc *ftc);
 
 void 	mandelbrot(t_ftc *ftc, double x, double y);
 void 	julia(t_ftc *ftc, double x, double y);

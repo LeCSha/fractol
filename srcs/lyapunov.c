@@ -12,33 +12,58 @@
 
 #include "fractol.h"
 
-static double	c_lyapu(t_ftc *ftc, int i, double a, double b)
+int				change_seqlyapu(int key, t_ftc *ftc)
+{
+	free(ftc->seq);
+	if (key == 88)
+	{
+		if (!(ftc->seq = ft_strdup("ABBA")))
+			print_error(1, ftc);
+	}
+	else if (key == 89)
+	{
+		if (!(ftc->seq = ft_strdup("ABAAABB")))
+			print_error(1, ftc);
+	}
+	else if (key == 91)
+	{
+		if (!(ftc->seq = ft_strdup("AAABAB")))
+			print_error(1, ftc);
+	}
+	else if (key == 92)
+	{
+		if (!(ftc->seq = ft_strdup("BBABABAA")))
+			print_error(1, ftc);
+	}
+	return (0);
+}
+
+static double	c_lyapu(t_ftc *ftc, int i, t_cpx ab)
 {
 	if (ftc->seq[i % ft_strlen(ftc->seq)] == 'A')
-		return (a);
-	return (b);
+		return (ab.x);
+	return (ab.y);
 }
 
 static void		draw_lmbda(t_ftc *ftc, double x, double y, double lmbda)
 {
 	if (lmbda < 0)
-		draw_fractal(ftc, x, y, smoothcolor(ftc, lmbda * -1 * 255));
+		draw_fractal(ftc, x, y, smoothcolor(ftc, lmbda * -1 * 255, ftc->c));
 	else
 		draw_fractal(ftc, x, y, ((int)(lmbda / 2 * 255)) << 0);
 }
 
 void			lyapunov(t_ftc *ftc, double x, double y)
 {
-	double	a;
-	double	b;
+	t_cpx	ab;
 	double	lmbda;
 	double	x_n[ftc->itmax + 1];
 	int		i;
 
 	x_n[0] = 0.5;
-	a = ftc->z.x - ftc->imgx / 2.0 + ftc->imgx * x / WIDTH + ftc->pdx;
-	b = ftc->z.y + ftc->imgy / 2.0 - ftc->imgy * y / HEIGHT + ftc->pdy;
-	if (a < 0 || a > 4 || b < 0 || b > 4)
+	ab.x = ftc->c.x - ftc->imgx / 2.0 + ftc->imgx * x / WIDTH + ftc->pdx;
+	ab.y = ftc->c.y + ftc->imgy / 2.0 - ftc->imgy * y / HEIGHT + ftc->pdy;
+	if (ab.x < 0 || ab.x > 4 || ab.y < 0 || ab.y > 4)
 		lmbda = INT_MAX;
 	else
 	{
@@ -46,8 +71,8 @@ void			lyapunov(t_ftc *ftc, double x, double y)
 		i = 1;
 		while (i <= ftc->itmax)
 		{
-			x_n[i] = c_lyapu(ftc, i - 1, a, b) * x_n[i - 1] * (1 - x_n[i - 1]);
-			lmbda += log(fabs(c_lyapu(ftc, i, a, b) * (1 - 2 * x_n[i]))) /
+			x_n[i] = c_lyapu(ftc, i - 1, ab) * x_n[i - 1] * (1 - x_n[i - 1]);
+			lmbda += log(fabs(c_lyapu(ftc, i, ab) * (1 - 2 * x_n[i]))) /
 			log(2);
 			i++;
 		}
@@ -64,7 +89,7 @@ void			init_lyapu(t_ftc *ftc)
 	ftc->zoom = 0.3f;
 	ftc->imgy = ftc->zoom * 2;
 	ftc->imgx = ftc->imgy * WIDTH / HEIGHT;
-	ftc->z.x = 3.4f - ftc->imgx / 2;
-	ftc->z.y = 3.7f;
 	ftc->stpmov = 0;
+	ftc->c.x = 3.4f - ftc->imgx / 2;
+	ftc->c.y = 3.7f;
 }

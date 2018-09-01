@@ -28,6 +28,7 @@ void	reset(t_ftc *ftc)
 	ftc->pdx = 0.0;
 	ftc->pdy = 0.0;
 }
+
 void	draw_fractal(t_ftc *ftc, int x, int y, int color)
 {
 	ftc->mx->data[y * WIDTH + x] = color;

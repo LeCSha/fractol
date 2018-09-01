@@ -103,8 +103,8 @@ int		keycode(int key, t_ftc *ftc)
 		change_fract(key, ftc);
 	if (key >= KEY_1 && key <= KEY_6)
 		ftc->palptr = &ftc->pcolors[key - KEY_1];
-	// if (ft_strcmp(ftc->fname, "lyapunov") == 0)
-	// 	if ()
+	if (ft_strcmp(ftc->fname, "lyapunov") == 0 && (key >= 88 && key <= 92))
+		change_seqlyapu(key, ftc);
 	redraw(ftc);
 	return (0);
 }

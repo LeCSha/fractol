@@ -14,8 +14,8 @@
 
 void	mandelbrot(t_ftc *ftc, double x, double y)
 {
-	double i;
-	double tmp;
+	double	i;
+	double	tmp;
 	t_cpx	z;
 	t_cpx	c;
 
@@ -38,8 +38,8 @@ void	mandelbrot(t_ftc *ftc, double x, double y)
 
 void	burningship(t_ftc *ftc, double x, double y)
 {
-	double i;
-	double tmp;
+	double	i;
+	double	tmp;
 	t_cpx	z;
 	t_cpx	c;
 
@@ -62,8 +62,8 @@ void	burningship(t_ftc *ftc, double x, double y)
 
 void	julia(t_ftc *ftc, double x, double y)
 {
-	double i;
-	double tmp;
+	double	i;
+	double	tmp;
 	t_cpx	z;
 
 	z.x = (x / WIDTH) * (ftc->end.x - ftc->start.x)
@@ -83,8 +83,8 @@ void	julia(t_ftc *ftc, double x, double y)
 
 void	tribrot(t_ftc *ftc, double x, double y)
 {
-	double i;
-	double tmp;
+	double	i;
+	double	tmp;
 	t_cpx	z;
 	t_cpx	c;
 
