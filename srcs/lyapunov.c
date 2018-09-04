@@ -12,27 +12,17 @@
 
 #include "fractol.h"
 
-int				change_seqlyapu(int key, t_ftc *ftc)
+int				change_seqlyapu(t_ftc *ftc)
 {
-	free(ftc->seq);
-	if (key == 88)
+	char slyapu[100];
+
+	ft_putstr("Enter a sequence Ex : (ABBA) (ABAAABB) (AAABAB) >>");
+	ft_bzero(slyapu, 100);
+	fgets(slyapu, 100, stdin);
+	if (slyapu[0] != 0)
 	{
-		if (!(ftc->seq = ft_strdup("ABBA")))
-			print_error(1, ftc);
-	}
-	else if (key == 89)
-	{
-		if (!(ftc->seq = ft_strdup("ABAAABB")))
-			print_error(1, ftc);
-	}
-	else if (key == 91)
-	{
-		if (!(ftc->seq = ft_strdup("AAABAB")))
-			print_error(1, ftc);
-	}
-	else if (key == 92)
-	{
-		if (!(ftc->seq = ft_strdup("BBABABAA")))
+		free(ftc->seq);
+		if (!(ftc->seq = ft_strdup(slyapu)))
 			print_error(1, ftc);
 	}
 	return (0);
@@ -83,7 +73,7 @@ void			lyapunov(t_ftc *ftc, double x, double y)
 
 void			init_lyapu(t_ftc *ftc)
 {
-	if (!(ftc->seq = ft_strdup("BAAB")))
+	if (!(ftc->seq = ft_strdup("BBAAAAABBABA")))
 		print_error(1, ftc);
 	ftc->itmax = 100;
 	ftc->zoom = 0.3f;
