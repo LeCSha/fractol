@@ -12,9 +12,10 @@
 # include "mlx.h"
 # include "libft.h"
 # include <pthread.h>
+# include "X.h"
 
-# define WIDTH 1000
-# define HEIGHT 1000
+# define WIDTH 600
+# define HEIGHT 600
 # define KEY_1	18
 # define KEY_2	19
 # define KEY_3	20

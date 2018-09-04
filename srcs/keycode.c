@@ -61,7 +61,7 @@ void	zoom(int key, t_ftc *ftc)
 
 	oldw = (ftc->end.x - ftc->start.x) * ftc->zoom;
 	oldh = (ftc->end.y - ftc->start.y) * ftc->zoom;
-	ftc->zoom = (key == 69) ? ftc->zoom * (1 / 1.1f) : ftc->zoom * 1.1f;
+	ftc->zoom = (key == 69) ? ftc->zoom - 1 : ftc->zoom + 1;
 	neww = (ftc->end.x - ftc->start.x) * ftc->zoom;
 	newh = (ftc->end.y - ftc->start.y) * ftc->zoom;
 	ftc->pdx -= ((double)WIDTH / 2 / WIDTH) * (neww - oldw);
@@ -71,13 +71,13 @@ void	zoom(int key, t_ftc *ftc)
 void	moove(int key, t_ftc *ftc)
 {
 	if (key == 123)
-		ftc->pdx -= ftc->zoom * 0.01f;
+		ftc->pdx -= ftc->zoom * 0.5f;
 	if (key == 124)
-		ftc->pdx += ftc->zoom * 0.01f;
+		ftc->pdx += ftc->zoom * 0.5f;
 	if (key == 125)
-		ftc->pdy += ftc->zoom * 0.01f;
+		ftc->pdy += ftc->zoom * 0.5f;
 	if (key == 126)
-		ftc->pdy -= ftc->zoom * 0.01f;
+		ftc->pdy -= ftc->zoom * 0.5f;
 }
 
 int		keycode(int key, t_ftc *ftc)

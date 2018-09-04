@@ -94,9 +94,12 @@ int		main(int ac, char **av)
 	ftc_info(ftc, av[1]);
 	init_thread(ftc);
 	mlx_put_image_to_window(ftc->mx->mptr, ftc->mx->wptr, ftc->mx->iptr, 0, 0);
-	mlx_key_hook(ftc->mx->wptr, keycode, ftc);
+
+	mlx_do_key_autorepeaton(ftc->mx->mptr);
+	// mlx_key_hook(ftc->mx->wptr, keycode, ftc);
 	mlx_mouse_hook(ftc->mx->wptr, mousecode, ftc);
 	mlx_hook(ftc->mx->wptr, 6, 3, mousemotion, ftc);
+	mlx_hook(ftc->mx->wptr, KeyPress, KeyPressMask, keycode, ftc);
 	mlx_loop(ftc->mx->mptr);
 	return (0);
 }

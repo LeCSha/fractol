@@ -23,7 +23,8 @@ SRC_PATH = ./srcs/
 OBJ_PATH = ./objs/
 INC_PATH = ./includes/ \
 			./minilibx/ \
-			./libft/
+			./libft/	\
+			/System/Library/Frameworks/Tk.framework/Versions/8.5/Headers/X11/
 
 SRC_NAME =	fractol.c	\
 			keycode.c	\

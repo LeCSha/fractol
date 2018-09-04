@@ -48,10 +48,7 @@ void	usage(void)
 {
 	ft_putstr("\n\n---- USAGE ----\n\n");
 	ft_putstr("./fractol [mandelbrot, julia, burningship,");
-	ft_putstr("tribrot, lyapunov]\n\n");
-	ft_putstr("scroll to zoom\n");
-	ft_putstr("[LFT][RGT][UP][DWN] to moove\n");
-	ft_putstr("1 to 6 to change colors\n\n");
+	ft_putstr(" tribrot, lyapunov]\n\n");
 }
 
 void	print_error(int nb, t_ftc *ftc)
