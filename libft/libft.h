@@ -77,13 +77,12 @@ char			*ft_strjoin(const char *s1, const char *s2);
 char			*ft_strtrim(const char *s);
 char			**ft_strsplit(const char *s, char c);
 char			*ft_itoa(int n);
-char 			*ft_ftoa(double nb);
 void			ft_putendl(const char *s);
 double			ft_modf(double nb, double *nbr);
-int 			ft_abs(int nb);
+int				ft_abs(int nb);
 double			ft_pow(double nb, double power);
-double  		ft_clamp(double nb, double min, double max);
-int 			get_next_line(const int fd, char **line);
+double			ft_clamp(double nb, double min, double max);
+int				get_next_line(const int fd, char **line);
 
 void			ft_putchar_fd(char c, int fd);
 void			ft_putstr_fd(const char *s, int fd);

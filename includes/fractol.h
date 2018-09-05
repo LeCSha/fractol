@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fractol.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: abaille <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/09/05 14:30:44 by abaille           #+#    #+#             */
+/*   Updated: 2018/09/05 14:30:46 by abaille          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
@@ -6,7 +18,6 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <fcntl.h>
-# include <stdio.h>
 # include <time.h>
 # include <limits.h>
 # include "mlx.h"
@@ -14,8 +25,8 @@
 # include <pthread.h>
 # include "X.h"
 
-# define WIDTH 600
-# define HEIGHT 600
+# define WIDTH 1000
+# define HEIGHT 1000
 # define KEY_1	18
 # define KEY_2	19
 # define KEY_3	20
@@ -40,17 +51,17 @@
 # define T_TH3 ftc->th3.thread
 # define T_TH4 ftc->th4.thread
 
-typedef struct  s_cpx   t_cpx;
-typedef struct  s_rgb   t_rgb;
-typedef struct  s_mlx   t_mlx;
-typedef struct  s_ftc   t_ftc;
-typedef struct  s_pal   t_pal;
-typedef struct  s_thr   t_thr;
+typedef struct s_cpx	t_cpx;
+typedef struct s_rgb	t_rgb;
+typedef struct s_mlx	t_mlx;
+typedef struct s_ftc	t_ftc;
+typedef struct s_pal	t_pal;
+typedef struct s_thr	t_thr;
 
-struct  s_cpx
+struct	s_cpx
 {
-	double  x;
-	double  y;
+	double			x;
+	double			y;
 };
 
 struct	s_rgb
@@ -60,52 +71,52 @@ struct	s_rgb
 	unsigned char	b;
 };
 
-struct  s_pal
+struct	s_pal
 {
-	int size;
-	int c[5];
+	int				size;
+	int				c[5];
 };
 
 struct	s_thr
 {
-	int			nb;
-	t_ftc		*ftc;
-	pthread_t	thread;
+	int				nb;
+	t_ftc			*ftc;
+	pthread_t		thread;
 };
 
 struct	s_mlx
 {
-	void	*mptr;
-	void	*wptr;
-	void	*iptr;
-	int		*data;
-	int		size_l;
-	int		bpp;
-	int		endian;
+	void			*mptr;
+	void			*wptr;
+	void			*iptr;
+	int				*data;
+	int				size_l;
+	int				bpp;
+	int				endian;
 };
 
-struct  s_ftc
+struct	s_ftc
 {
-	t_cpx   start;
-	t_cpx   end;
-	t_cpx   c;
-	t_mlx   *mx;
-	t_pal   *pcolors;
-	t_pal   *palptr;
-	t_thr	th1;
-	t_thr	th2;
-	t_thr	th3;
-	t_thr	th4;
-	char    *fname;
-	char    *seq;
-	double  zoom;
-	int     itmax;
-	double  pdx;
-	double  pdy;
-	double  imgx;
-	double  imgy;
-	int     stpmov;
-	void    (*fractal)(t_ftc *ftc, double, double);
+	t_cpx			start;
+	t_cpx			end;
+	t_cpx			c;
+	t_mlx			*mx;
+	t_pal			*pcolors;
+	t_pal			*palptr;
+	t_thr			th1;
+	t_thr			th2;
+	t_thr			th3;
+	t_thr			th4;
+	char			*fname;
+	char			*seq;
+	double			zoom;
+	int				itmax;
+	double			pdx;
+	double			pdy;
+	double			imgx;
+	double			imgy;
+	int				stpmov;
+	void			(*fractal)(t_ftc *ftc, double, double);
 };
 
 int		keycode(int key, t_ftc *ftc);
@@ -113,9 +124,9 @@ int		mousemotion(int x, int y, t_ftc *ftc);
 int		mousecode(int button, int x, int y, t_ftc *ftc);
 int		change_seqlyapu(t_ftc *ftc);
 
-void 	mandelbrot(t_ftc *ftc, double x, double y);
-void 	julia(t_ftc *ftc, double x, double y);
-void 	burningship(t_ftc *ftc, double x, double y);
+void	mandelbrot(t_ftc *ftc, double x, double y);
+void	julia(t_ftc *ftc, double x, double y);
+void	burningship(t_ftc *ftc, double x, double y);
 void	tribrot(t_ftc *ftc, double x, double y);
 void	init_lyapu(t_ftc *ftc);
 void	lyapunov(t_ftc *ftc, double x, double y);

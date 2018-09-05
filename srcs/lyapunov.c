@@ -16,10 +16,11 @@ int				change_seqlyapu(t_ftc *ftc)
 {
 	char slyapu[100];
 
-	ft_putstr("Enter a sequence AB Ex : (ABBA) (ABAAABB)");
-	ft_putstr(" (AAABAB) (AAAAAAAAAABBAABBBBBAB) >>");
-	ft_bzero(slyapu, 100);
-	fgets(slyapu, 100, stdin);
+	ft_bzero(slyapu, 99);
+	slyapu[99] = '\0';
+	ft_putstr("Enter a sequence AB Ex : (ABAAABB)");
+	ft_putstr(" (AAABAB) (AAAAAAAAAABBAABBBBBAB) \n>>");
+	read(1, slyapu, 99);
 	if (slyapu[0] != 0)
 	{
 		free(ftc->seq);

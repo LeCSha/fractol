@@ -12,9 +12,9 @@
 
 #include "libft.h"
 
-double  ft_modf(double nb, double *nbr)
+double	ft_modf(double nb, double *nbr)
 {
-  if (nbr != NULL)
-    *nbr = (int)nb;
-  return (nb - (int)nb);
+	if (nbr != NULL)
+		*nbr = (int)nb;
+	return (nb - (int)nb);
 }

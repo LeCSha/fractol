@@ -12,11 +12,11 @@
 
 #include "libft.h"
 
-double  ft_clamp(double nb, double min, double max)
+double	ft_clamp(double nb, double min, double max)
 {
-    if (nb < min)
-        nb = min;
-    else if (nb > max)
-        nb = max;
-    return (nb);
+	if (nb < min)
+		nb = min;
+	else if (nb > max)
+		nb = max;
+	return (nb);
 }

@@ -61,7 +61,7 @@ void	zoom(int key, t_ftc *ftc)
 
 	oldw = (ftc->end.x - ftc->start.x) * ftc->zoom;
 	oldh = (ftc->end.y - ftc->start.y) * ftc->zoom;
-	ftc->zoom = (key == 69) ? ftc->zoom - 1 : ftc->zoom + 1;
+	ftc->zoom = (key == 69) ? ftc->zoom * (1 / 1.1f) : ftc->zoom * 1.1f;
 	neww = (ftc->end.x - ftc->start.x) * ftc->zoom;
 	newh = (ftc->end.y - ftc->start.y) * ftc->zoom;
 	ftc->pdx -= ((double)WIDTH / 2 / WIDTH) * (neww - oldw);

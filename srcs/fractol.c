@@ -23,15 +23,17 @@ void	string_put(t_ftc *ftc)
 	mlx_string_put(ftc->mx->mptr, ftc->mx->wptr, 10,
 		1110, 0x2EDD17, "[SCROLL] / [+][-] Zoom\n");
 	mlx_string_put(ftc->mx->mptr, ftc->mx->wptr, 10,
-		1140, 0x2EDD17, "[Z][X] Increase it max\n");
-	mlx_string_put(ftc->mx->mptr, ftc->mx->wptr, 500,
+		1140, 0x2EDD17, "[Z][X] De/Increase it max\n");
+	mlx_string_put(ftc->mx->mptr, ftc->mx->wptr, 450,
 		1050, 0x2EDD17, "[1-6] Change colors\n");
-	mlx_string_put(ftc->mx->mptr, ftc->mx->wptr, 500,
+	mlx_string_put(ftc->mx->mptr, ftc->mx->wptr, 450,
 		1080, 0x2EDD17, "[NUM 1-5] Change fractal\n");
-	mlx_string_put(ftc->mx->mptr, ftc->mx->wptr, 500,
-		1110, 0x2EDD17, "[Entr] Reset\n");
-	mlx_string_put(ftc->mx->mptr, ftc->mx->wptr, 500,
-		1140, 0x2EDD17, "[ESC] Exit\n");
+	mlx_string_put(ftc->mx->mptr, ftc->mx->wptr, 450,
+		1110, 0x2EDD17, "[C] Change sequence AB (Lyapunov)\n");
+	mlx_string_put(ftc->mx->mptr, ftc->mx->wptr, 450,
+		1140, 0x2EDD17, "[Entr] Reset\n");
+	mlx_string_put(ftc->mx->mptr, ftc->mx->wptr, 850,
+		1050, 0x2EDD17, "[ESC] Exit\n");
 }
 
 void	init_mlx(t_ftc *ftc)
@@ -94,9 +96,7 @@ int		main(int ac, char **av)
 	ftc_info(ftc, av[1]);
 	init_thread(ftc);
 	mlx_put_image_to_window(ftc->mx->mptr, ftc->mx->wptr, ftc->mx->iptr, 0, 0);
-
 	mlx_do_key_autorepeaton(ftc->mx->mptr);
-	// mlx_key_hook(ftc->mx->wptr, keycode, ftc);
 	mlx_mouse_hook(ftc->mx->wptr, mousecode, ftc);
 	mlx_hook(ftc->mx->wptr, 6, 3, mousemotion, ftc);
 	mlx_hook(ftc->mx->wptr, KeyPress, KeyPressMask, keycode, ftc);
