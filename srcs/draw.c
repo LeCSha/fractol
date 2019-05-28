@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaille <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: abaille <abaille@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/25 09:50:01 by abaille           #+#    #+#             */
-/*   Updated: 2018/06/25 09:50:04 by abaille          ###   ########.fr       */
+/*   Updated: 2019/05/28 22:03:00 by abaille          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void	it_draw(t_ftc *ftc, void (func)(t_ftc *, double, double), int line)
 void	redraw(t_ftc *ftc)
 {
 	mlx_clear_window(ftc->mx->mptr, ftc->mx->wptr);
-	string_put(ftc);
 	init_thread(ftc);
 	mlx_put_image_to_window(ftc->mx->mptr, ftc->mx->wptr, ftc->mx->iptr, 0, 0);
 }

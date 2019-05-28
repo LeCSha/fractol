@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaille <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: abaille <abaille@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 14:30:44 by abaille           #+#    #+#             */
-/*   Updated: 2018/09/10 12:30:55 by abaille          ###   ########.fr       */
+/*   Updated: 2019/05/28 21:15:46 by abaille          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 # include <pthread.h>
 # include "X.h"
 
-# define WIDTH 1000
-# define HEIGHT 1000
+# define WIDTH 600
+# define HEIGHT 600
 # define KEY_1	18
 # define KEY_2	19
 # define KEY_3	20
@@ -86,6 +86,7 @@ struct	s_thr
 struct	s_mlx
 {
 	void			*mptr;
+	void			*sptr;
 	void			*wptr;
 	void			*iptr;
 	int				*data;

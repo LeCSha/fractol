@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   keycide.c                                          :+:      :+:    :+:   */
+/*   keycode.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaille <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: abaille <abaille@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/25 09:50:01 by abaille           #+#    #+#             */
-/*   Updated: 2018/06/25 09:50:04 by abaille          ###   ########.fr       */
+/*   Updated: 2019/05/28 22:17:40 by abaille          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int		keycode(int key, t_ftc *ftc)
 		if (ftc->itmax > 0)
 			ftc->itmax -= 5;
 		else
-			ftc->itmax = ft_abs(ftc->itmax) + 2;
+			ftc->itmax = 0;
 	}
 	if (key == 69 || key == 78)
 		zoom(key, ftc);

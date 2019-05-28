@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checkerrors.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaille <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: abaille <abaille@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/25 09:50:01 by abaille           #+#    #+#             */
-/*   Updated: 2018/06/25 09:50:04 by abaille          ###   ########.fr       */
+/*   Updated: 2019/05/28 21:22:32 by abaille          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	exit_ftc(t_ftc *ftc)
 	mlx_destroy_image(ftc->mx->mptr, ftc->mx->iptr);
 	mlx_clear_window(ftc->mx->mptr, ftc->mx->wptr);
 	mlx_destroy_window(ftc->mx->mptr, ftc->mx->wptr);
+	mlx_destroy_window(ftc->mx->mptr, ftc->mx->sptr);
 	free_fract(ftc);
 	exit(0);
 }
